@@ -12,7 +12,7 @@ class FilesBl constructor(
     private val s3ObjectRepository : S3ObjectRepository
 ) {
 
-    fun uploadFile(file: MultipartFile, bucket: String): Int {
+    fun uploadFile(file: MultipartFile, bucket: String): Long {
         // upload to minio
         val newFile = minioService.uploadFile(file, bucket)
         // store in database
@@ -23,6 +23,6 @@ class FilesBl constructor(
             status = true
         )
         val savedS3Object = s3ObjectRepository.save(s3Object)
-        return savedS3Object.id!!
+        return savedS3Object.s3ObjectId!!
     }
 }

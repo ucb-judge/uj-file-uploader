@@ -8,7 +8,7 @@ class S3Object {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "s3_object_id")
-    var id: Int? = null
+    var s3ObjectId: Long? = null
 
     @Column(name = "content_type")
     var contentType: String? = "application/octet-stream"

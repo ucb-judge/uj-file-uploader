@@ -17,7 +17,7 @@ class FilesController constructor(
 ){
 
     @PostMapping
-    fun uploadFile(@RequestParam("file") file: MultipartFile, @RequestParam("bucket") bucket: String): ResponseEntity<ResponseDto<Int>>{
+    fun uploadFile(@RequestParam("file") file: MultipartFile, @RequestParam("bucket") bucket: String): ResponseEntity<ResponseDto<Long>>{
         val id = filesBl.uploadFile(file, bucket)
         return ResponseEntity.ok(ResponseDto(data = id, message = "File uploaded successfully", successful = true))
     }
