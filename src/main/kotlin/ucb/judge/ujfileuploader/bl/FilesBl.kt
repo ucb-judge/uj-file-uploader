@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import ucb.judge.ujfileuploader.dao.S3Object
 import ucb.judge.ujfileuploader.dao.repository.S3ObjectRepository
+import ucb.judge.ujfileuploader.dto.FileDto
 import ucb.judge.ujfileuploader.service.MinioService
 
 @Service
@@ -18,7 +19,7 @@ class FilesBl constructor(
         val logger: Logger = LoggerFactory.getLogger(FilesBl::class.java)
     }
 
-    fun uploadFile(file: MultipartFile, bucket: String, customFilename: Boolean): Long {
+    fun uploadFile(file: MultipartFile, bucket: String, customFilename: Boolean): FileDto {
         // upload to minio
         logger.info("Uploading file to minio")
         logger.info("filename: ${file.originalFilename}")
@@ -32,6 +33,11 @@ class FilesBl constructor(
             status = true
         )
         val savedS3Object = s3ObjectRepository.save(s3Object)
-        return savedS3Object.s3ObjectId!!
+        return FileDto(
+            fileId = savedS3Object.s3ObjectId!!,
+            filename = savedS3Object.filename!!,
+            bucket = savedS3Object.bucket!!,
+            contentType = savedS3Object.contentType!!,
+        )
     }
 }

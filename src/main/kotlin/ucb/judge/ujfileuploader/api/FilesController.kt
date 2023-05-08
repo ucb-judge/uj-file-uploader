@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 import ucb.judge.ujfileuploader.bl.FilesBl
+import ucb.judge.ujfileuploader.dto.FileDto
 import ucb.judge.ujfileuploader.dto.ResponseDto
 
 @RestController
@@ -26,10 +27,10 @@ class FilesController constructor(
         @RequestParam("file") file: MultipartFile,
         @RequestParam("bucket") bucket: String,
         @RequestParam("customFilename", required = false) customFilename: Boolean = false,
-    ): ResponseEntity<ResponseDto<Long>>{
+    ): ResponseEntity<ResponseDto<FileDto>>{
         logger.info("POST /api/v1/files")
-        val id = filesBl.uploadFile(file, bucket, customFilename)
+        val fileDto = filesBl.uploadFile(file, bucket, customFilename)
         logger.info("Sending response")
-        return ResponseEntity.ok(ResponseDto(data = id, message = "File uploaded successfully", successful = true))
+        return ResponseEntity.ok(ResponseDto(data = fileDto, message = "File uploaded successfully", successful = true))
     }
 }
