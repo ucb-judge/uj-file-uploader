@@ -1,5 +1,7 @@
 package ucb.judge.ujfileuploader.bl
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import ucb.judge.ujfileuploader.dao.S3Object
@@ -12,10 +14,17 @@ class FilesBl constructor(
     private val s3ObjectRepository : S3ObjectRepository
 ) {
 
-    fun uploadFile(file: MultipartFile, bucket: String): Long {
+    companion object {
+        val logger: Logger = LoggerFactory.getLogger(FilesBl::class.java)
+    }
+
+    fun uploadFile(file: MultipartFile, bucket: String, customFilename: Boolean): Long {
         // upload to minio
-        val newFile = minioService.uploadFile(file, bucket)
+        logger.info("Uploading file to minio")
+        logger.info("filename: ${file.originalFilename}")
+        val newFile = minioService.uploadFile(file, bucket, customFilename)
         // store in database
+        logger.info("Storing file metadata in database")
         val s3Object = S3Object(
             filename = newFile.filename,
             bucket = newFile.bucket,

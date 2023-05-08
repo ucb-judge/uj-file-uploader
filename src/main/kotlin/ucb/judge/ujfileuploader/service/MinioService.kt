@@ -16,15 +16,19 @@ class MinioService constructor(
     @Value("\${minio.url}")
     private lateinit var minioUrl: String
 
-    fun uploadFile(file: MultipartFile, bucket: String): NewFileDto {
+    fun uploadFile(file: MultipartFile, bucket: String, customFilename: Boolean): NewFileDto {
         // file name
-        val filename = UUID.randomUUID().toString()
-        val filenameWithExtension = "$filename.${file.originalFilename!!.split(".").last()}"
+        val filename: String = if (customFilename) {
+            file.originalFilename!!
+        } else {
+            "${UUID.randomUUID()}.${file.originalFilename!!.split(".").last()}"
+        }
+
         // save object
         minioClient.putObject(
             PutObjectArgs.builder()
                 .bucket(bucket)
-                .`object`(filenameWithExtension)
+                .`object`(filename)
                 .stream(file.inputStream, file.size, -1)
                 .contentType(file.contentType)
                 .build()
