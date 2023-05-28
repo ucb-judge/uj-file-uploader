@@ -3,12 +3,14 @@ spring:
     name: uj-file-uploader
   datasource:
     type: org.postgresql.jdbc2.optional.SimpleDataSource
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:mysecretpassword}
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/db_ucb_judge}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:mysecretpassword}
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/db_ucb_judge}
     jpa:
       hibernate:
         ddl-auto: update
+  zipkin:
+    base-url: ${ZIPKIN_SERVER_URI:http://localhost:9411}
 
 server:
   port: ${PORT:8083}
@@ -16,31 +18,31 @@ server:
 eureka:
   client:
     registerWithEureka: true
-  serviceUrl:
-    defaultZone: ${DISCOVERY_SERVER_URL:http://localhost:8761/eureka}
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URI:http://localhost:8711/eureka}
 
 keycloak:
-  auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL:http://localhost:8080/}
+  auth-server-url: ${KEYCLOAK_SERVER_URI:http://localhost:8090}
   autodetect-bearer-only: true
   credentials:
-    secret: ${KEYCLOAK_CLIENT_SECRET:BNHREThKV64GqdjrJKJqkmLLowtwjfSi}
+    secret: ${KEYCLOAK_CLIENT_SECRET:x4bTh9msLPtVOt5gvTIQcBWSHYLlsXBX}
   realm: ${KEYCLOAK_REALM:ucb-judge}
-  resource: ${KEYCLOAK_CLIENT_ID:uj-problems}
+  resource: ${KEYCLOAK_CLIENT_ID:uj-file-uploader}
   ssl-required: none
   use-resource-role-mappings: false
   security-constraints:
     - auth-roles:
-        - upload-file
+        - uj-upload-file
       security-collections:
         - name: Allow uploading files
           omitted-methods:
             - OPTIONS
           patterns:
-            - /api/files/upload
+            - /api/v1/files/upload
 
 minio:
-  url: ${MINIO_URL:http://localhost:9000}
+  url: ${MINIO_SERVER_URI:http://localhost:9000}
   access:
-    key: ${MINIO_ACCESS_KEY:iKOtBf9MN2CpPKsB}
-    secret: ${MINIO_SECRET_KEY:Zrxoy7B2pv6FSXBOXIlCsNJcGFPZynPb}
+    key: ${MINIO_ACCESS_KEY:c5hPg2BgTgDxxbeHNhwF}
+    secret: ${MINIO_SECRET_KEY:lDFhBBL83nE5xn5rz6VZWbwxWgtJIWeTTWae9AMv}
 
