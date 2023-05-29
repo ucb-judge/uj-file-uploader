@@ -34,10 +34,11 @@ class FilesBl constructor(
         )
         val savedS3Object = s3ObjectRepository.save(s3Object)
         return FileDto(
-            fileId = savedS3Object.s3ObjectId!!,
-            filename = savedS3Object.filename!!,
-            bucket = savedS3Object.bucket!!,
+            s3ObjectId = savedS3Object.s3ObjectId!!,
             contentType = savedS3Object.contentType!!,
+            bucket = savedS3Object.bucket!!,
+            filename = savedS3Object.filename!!,
+            status = savedS3Object.status
         )
     }
 }
