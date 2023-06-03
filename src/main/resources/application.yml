@@ -25,7 +25,7 @@ keycloak:
   auth-server-url: ${KEYCLOAK_SERVER_URI:http://localhost:8090}
   autodetect-bearer-only: true
   credentials:
-    secret: ${KEYCLOAK_CLIENT_SECRET:x4bTh9msLPtVOt5gvTIQcBWSHYLlsXBX}
+    secret: ${KEYCLOAK_CLIENT_SECRET:gE3uRAuVXXBcTJyuPPXX0cmjB6YFj4Qp}
   realm: ${KEYCLOAK_REALM:ucb-judge}
   resource: ${KEYCLOAK_CLIENT_ID:uj-file-uploader}
   ssl-required: none
@@ -35,8 +35,8 @@ keycloak:
         - uj-upload-file
       security-collections:
         - name: Allow uploading files
-          omitted-methods:
-            - OPTIONS
+          methods:
+            - POST
           patterns:
             - /api/v1/files/upload
 

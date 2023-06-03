@@ -1,4 +1,5 @@
 FROM eclipse-temurin:11-jdk-alpine
+#FROM --platform=linux/x86_64 eclipse-temurin:11-jdk
 #FROM arm64v8/eclipse-temurin:11-jdk
 
 EXPOSE 8083

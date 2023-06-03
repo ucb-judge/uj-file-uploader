@@ -6,13 +6,13 @@
     <springProperty scope="context" name="port" source="server.port"/>
     <springProperty scope="context" name="logstashHost" source="logstash.host"/>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-<!--        <file>/opt/ucb-judge/logs/${application}/${application}-${port}.log</file>-->
+        <file>/opt/ucb-judge/logs/${application}/${application}-${port}.log</file>
         <append>true</append>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--    for macOS    -->
-            <!--<fileNamePattern>/var/ucb-judge/logs/${application}/${application}-${port}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>&ndash;&gt;-->
+            <fileNamePattern>/opt/ucb-judge/logs/${application}/${application}-${port}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
             <!--    for Windows    -->
-            <fileNamePattern>D:/logs/${application}/${application}-${port}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+<!--            <fileNamePattern>D:/logs/${application}/${application}-${port}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize>
