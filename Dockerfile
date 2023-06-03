@@ -1,6 +1,6 @@
-FROM eclipse-temurin:11-jdk-alpine
+#FROM eclipse-temurin:11-jdk-alpine
 #FROM --platform=linux/x86_64 eclipse-temurin:11-jdk
-#FROM arm64v8/eclipse-temurin:11-jdk
+FROM arm64v8/eclipse-temurin:11-jdk
 
 EXPOSE 8083
 
@@ -43,4 +43,4 @@ COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","ucb.judge.ujusers.UjUsersApplicationKt"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","ucb.judge.ujusers.UjFileUploaderApplicationKt"]
