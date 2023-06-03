@@ -32,13 +32,13 @@ keycloak:
   use-resource-role-mappings: false
   security-constraints:
     - auth-roles:
-        - uj-upload-file
+        - uj-file-uploader-access
       security-collections:
         - name: Allow uploading files
           methods:
             - POST
           patterns:
-            - /api/v1/files/upload
+            - /api/v1/files
 
 minio:
   url: ${MINIO_SERVER_URI:http://localhost:9000}
