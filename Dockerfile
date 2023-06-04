@@ -1,6 +1,6 @@
 #FROM eclipse-temurin:11-jdk-alpine
-#FROM --platform=linux/x86_64 eclipse-temurin:11-jdk
-FROM arm64v8/eclipse-temurin:11-jdk
+FROM --platform=linux/x86_64 eclipse-temurin:11-jdk
+#FROM arm64v8/eclipse-temurin:11-jdk
 
 EXPOSE 8083
 
@@ -34,7 +34,7 @@ ENV KEYCLOAK_REALM="KEYCLOAK_REALM"
 ENV KEYCLOAK_CLIENT_ID="KEYCLOAK_CLIENT_ID"
 
 # Minio
-ENV MINIO_URL="MINIO_URL"
+ENV MINIO_SERVER_URI="MINIO_URL"
 ENV MINIO_ACCESS_KEY="MINIO_ACCESS_KEY"
 ENV MINIO_SECRET_KEY="MINIO_SECRET_KEY"
 
@@ -43,4 +43,4 @@ COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","ucb.judge.ujusers.UjFileUploaderApplicationKt"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","ucb.judge.ujfileuploader.UjFileUploaderApplicationKt"]
